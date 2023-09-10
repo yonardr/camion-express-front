@@ -1,14 +1,10 @@
 import { createStore } from 'vuex'
+import {advantageModule} from "@/store/advantageModule";
+import {partnerModule} from "@/store/partnerModule";
 
 export default createStore({
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
   modules: {
+    advantages: advantageModule,
+    partners: partnerModule
   }
 })

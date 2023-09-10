@@ -1,0 +1,83 @@
+<template >
+
+<div class="item" :class="changeColor">
+  <vue-flip :active-hover="true" :horizontal="flipChange" style="padding: 20px; height: 100%">
+    <template v-slot:front class="front">
+        <img :src="require(`@/assets/advantages/${item.img}`)"/>
+        <h3>{{item.title}}</h3>
+      <div class="des">{{item.description}}</div>
+    </template>
+    <template v-slot:back class="back" >
+      <div :class="rotate"><p style="white-space: pre;">{{item.back_description}}</p></div>
+    </template>
+  </vue-flip>
+</div>
+
+
+</template>
+
+<script>
+import {VueFlip} from "vue-flip";
+
+export default {
+  components:{
+    'vue-flip': VueFlip
+  },
+  data(){
+    return{
+      flipChange: false
+    }
+  },
+  props: {
+    item:{
+      type: Object,
+      required: true
+    },
+  },
+  computed:{
+    changeColor(){
+      if(this.item.id % 2 === 0) {
+        this.flipChange = true;
+        return 'card__blue'
+      }
+      else return 'card__white'
+    },
+    rotate(){
+      if(this.flipChange === true) return 'rotate'
+    }
+
+  },
+
+
+}
+</script>
+
+<style scoped lang="scss">
+@import '../variables';
+
+.item{
+  margin: 15px;
+  width: 303px ;
+  height: 200px;
+
+  img{
+    margin: 5px;
+  }
+  h3{
+    margin-bottom: 5px;
+  }
+}
+
+.card__white{
+  @include card(white);
+}
+.card__blue{
+  @include card($c_blue);
+}
+.back {
+  .rotate{
+      margin-top: 30px;
+      transform: rotate(180deg);
+  }
+}
+</style>
