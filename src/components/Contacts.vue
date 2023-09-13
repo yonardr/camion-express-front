@@ -2,6 +2,7 @@
   <div>
     <h2>КОНТАКТЫ</h2>
     <div class="department">Отдел Продаж</div>
+    <aos-vue animation="zoom-in" :delay="75" placement="top-bottom">
     <div class="card__blue">
       <h3>Шаймиева Лилия Бахтияровна</h3>
       <div class="text__blue">
@@ -17,8 +18,10 @@
         <div>astronkamion@mail.ru</div>
       </div>
     </div>
+    </aos-vue>
 
     <div class="department">Отдел Логистики</div>
+    <aos-vue animation="zoom-in" :delay="75" placement="top-bottom">
     <div class="card__white">
       <h3>Ибрин Никита Сергеевич</h3>
       <div class="text__white">
@@ -35,8 +38,10 @@
         <div>astron0408@gmail.com</div>
       </div>
     </div>
+    </aos-vue>
 
     <div class="department">Информация</div>
+    <aos-vue animation="zoom-in" :delay="75" placement="top-bottom">
     <div class="card__blue">
       <h3 style="margin-bottom: 0px">Общие контакты</h3>
       <div class="line"></div>
@@ -48,14 +53,16 @@
       </div>
 
     </div>
+    </aos-vue>
 
   </div>
 </template>
 
 <script>
+import AosVue from "aos-vue";
 export default {
-
-}
+  components: { AosVue },
+};
 </script>
 
 <style scoped lang="scss">

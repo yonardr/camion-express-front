@@ -1,5 +1,5 @@
 <template >
-
+  <aos-vue animation="zoom-in" :delay="75" placement="top-bottom">
 <div class="item" :class="changeColor">
   <vue-flip :active-hover="true" :horizontal="flipChange" style="padding: 20px; height: 100%">
     <template v-slot:front class="front">
@@ -13,15 +13,16 @@
   </vue-flip>
 </div>
 
-
+  </aos-vue>
 </template>
 
 <script>
 import {VueFlip} from "vue-flip";
-
+import AosVue from "aos-vue";
 export default {
   components:{
-    'vue-flip': VueFlip
+    'vue-flip': VueFlip,
+    AosVue
   },
   data(){
     return{
@@ -64,15 +65,21 @@ export default {
     margin: 5px;
   }
   h3{
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
 }
 
 .card__white{
   @include card(white);
+  .des{
+    color: $c_gray;
+  }
 }
 .card__blue{
   @include card($c_blue);
+  .des{
+    color: $c_silver;
+  }
 }
 .back {
   .rotate{

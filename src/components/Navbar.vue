@@ -68,11 +68,29 @@ export default {
   }
   .navbar__links{
     margin-left: calc(1000px - 150px - 734px);
+    display: flex;
 
     .link{
       color: $c_gray;
       margin-right: 21px;
       text-decoration: none;
+      font-weight: 600;
+      line-height: calc(24 / 14 * 100%);
+
+      &:after {
+        background-color: #737373; /* Цвет линии при наведении на нее курсора мыши */
+        display: block;
+        content: "";
+        height: 1px; /* Высота линии */
+        width: 0%;
+        -webkit-transition: width .3s ease-in-out;
+        -moz--transition: width .3s ease-in-out;
+        transition: width .3s ease-in-out;
+      }
+
+      &:hover:after{
+        width: 100%;
+      }
     }
   }
 }

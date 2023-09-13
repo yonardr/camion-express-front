@@ -2,25 +2,66 @@
   <div>
       <h2>ПАРТНЕРЫ</h2>
     <div class="group">
+      <aos-vue animation="fade-right" :delay="75" placement="top-bottom">
       <div class="group first__group">
         <img
-            v-for="img in $store.state.partners.first_group"
+            v-for="img in $store.state.partners.groups.filter(i=> i.id <= 3 )"
             :key="img.id"
-            :src="require(`@/assets/partners/${img.img_name}`)"/>
+            :src="require(`@/assets/partners/${img.img_name}`)"
+            @click="OpenDialog(img)"
+        />
       </div>
+      </aos-vue>
+      <aos-vue animation="fade-left" :delay="75" placement="top-bottom">
       <div class="group second__group">
         <img
-            v-for="img in $store.state.partners.second_group"
+            v-for="img in $store.state.partners.groups.filter(i=> i.id >= 4 )"
             :key="img.id"
             :style="{'width': img.size}"
-            :src="require(`@/assets/partners/${img.img_name}`)"/>
+            :src="require(`@/assets/partners/${img.img_name}`)"
+            @click="OpenDialog(img)"
+        />
       </div>
+      </aos-vue>
   </div>
+    <my-dialog v-model:show="dialogVisible">
+      <h3 class="title"><img :src="require(`@/assets/partners/${partner.img_name}`)" /> {{partner.name}}</h3>
+      <div class="group__modal">
+        <div class="name">Адрес: </div>
+        <div>{{partner.address}}</div>
+      </div>
+      <div class="group__modal">
+        <div class="name">Контакты: </div>
+        <div>{{partner.contact}}</div>
+      </div>
+      <div class="text">
+        <p>{{partner.description}}</p>
+      </div>
+    </my-dialog>
   </div>
 </template>
 
 <script>
+import MyDialog from "@/components/UI/MyDialog";
+import AosVue from "aos-vue";
+
 export default {
+  components: {MyDialog, AosVue},
+
+  data(){
+    return {
+      dialogVisible: false,
+      partner: {
+        type: Object
+      }
+    }
+  },
+  methods:{
+    OpenDialog(partner){
+      this.dialogVisible = true;
+      this.partner = partner;
+    }
+  }
 }
 </script>
 
@@ -47,5 +88,35 @@ export default {
   .second__group{
     grid-template-columns: repeat(2, 280px);
   }
+}
+
+//Модальное окно
+.title{
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+  font-size: 24px;
+  line-height: 133%;
+  img{
+    width: 80px;
+    margin: 0 15px ;
+  }
+}
+.group__modal{
+  display: flex;
+  column-count: 2;
+  margin: 17px 0;
+  .name{
+    font-size: 20px;
+    margin-right: 5px;
+
+  }
+}
+.text{
+  font-size: 14px;
+  margin: 10px 0;
+  line-height: 130%;
 }
 </style>

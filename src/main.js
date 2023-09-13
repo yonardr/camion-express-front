@@ -10,6 +10,7 @@ components.forEach(component => {
     app.component(component.name, component)
 })
 
+
 app
     .use(store)
     .use(router)

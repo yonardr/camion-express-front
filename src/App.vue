@@ -1,15 +1,18 @@
 <template>
   <div class="app" >
-      <Navbar />
-
-
+    <Navbar />
     <StartView/>
+
     <div class="__container">
+      <Calculator />
+      <News />
       <Advantages/>
       <SubmitApplication />
       <Partners />
       <Contacts />
     </div>
+    <Map />
+    <Footer />
   </div>
 </template>
 
@@ -20,9 +23,13 @@ import Advantages from "@/components/Advantages";
 import SubmitApplication from "@/components/SubmitApplication";
 import Partners from "@/components/Partners";
 import Contacts from "@/components/Contacts";
+import Map from "@/components/Map";
+import Calculator from "@/components/Calculator";
+import News from "@/components/News";
+import Footer from "@/components/Footer";
 
 export default {
-  components: {Contacts, Partners, SubmitApplication, Advantages, StartView, Navbar},
+  components: {Footer, News, Calculator, Map, Contacts, Partners, SubmitApplication, Advantages, StartView, Navbar},
 
 }
 </script>
