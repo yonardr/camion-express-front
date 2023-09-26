@@ -56,7 +56,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../variables";
+@import "../../variables";
 
 h2{
   margin-bottom: 20px;

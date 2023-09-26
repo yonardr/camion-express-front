@@ -10,6 +10,8 @@ export function useMap(){
         }
         catch (e) {alert('Ошибка')}
     }
+
+
     onMounted(fetching)
     return {cars}
 }

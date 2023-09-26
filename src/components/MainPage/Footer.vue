@@ -6,7 +6,7 @@
       <router-link to="" class="link">Документы для перевозки</router-link>
     </div>
     <div class="line __container"></div>
-    <div class="footer__content __container" style="margin-top: 2%">
+    <div class="footer__content __container" style="margin-top: 25px">
       <router-link to="" class="link">
         <img :src="require(`@/assets/footer/01.svg`)">
         8 (855)-247-51-20
@@ -36,7 +36,7 @@ export default {}
 </script>
 
 <style scoped lang="scss">
-@import '../variables';
+@import '../../variables';
 
 .footer {
   margin-top: 100px;
@@ -52,9 +52,11 @@ export default {}
     margin: 0 auto;
     text-decoration: none;
     display: flex;
+    align-items: center;
   }
   img{
-
+    width: 25px;
+    margin-right: 5px;
   }
 
 }

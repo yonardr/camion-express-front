@@ -17,16 +17,16 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbar";
-import StartView from "@/components/StartView";
-import Advantages from "@/components/Advantages";
-import SubmitApplication from "@/components/SubmitApplication";
-import Partners from "@/components/Partners";
-import Contacts from "@/components/Contacts";
-import Map from "@/components/Map";
-import Calculator from "@/components/Calculator";
-import News from "@/components/News";
-import Footer from "@/components/Footer";
+import Navbar from "@/components/MainPage/Navbar";
+import StartView from "@/components/MainPage/StartView";
+import Advantages from "@/components/MainPage/Advantages";
+import SubmitApplication from "@/components/MainPage/SubmitApplication";
+import Partners from "@/components/MainPage/Partners";
+import Contacts from "@/components/MainPage/Contacts";
+import Map from "@/components/MainPage/Map";
+import Calculator from "@/components/MainPage/Calculator";
+import News from "@/components/MainPage/News";
+import Footer from "@/components/MainPage/Footer";
 
 export default {
   components: {Footer, News, Calculator, Map, Contacts, Partners, SubmitApplication, Advantages, StartView, Navbar},

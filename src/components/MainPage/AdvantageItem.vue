@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '../variables';
+@import '../../variables';
 
 .item{
   margin: 15px;

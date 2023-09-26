@@ -18,7 +18,7 @@
 
   </div>
 
-  <img src="../assets/main.jpg" >
+  <img src="../../assets/main.jpg" >
 </div>
 </template>
 
@@ -31,7 +31,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../variables";
+@import "../../variables";
 
 .down{
   position: absolute;

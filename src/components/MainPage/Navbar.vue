@@ -1,11 +1,12 @@
 <template>
 
     <div class="navbar" :class="uu">
-      <div @click="$router.push('/')"><img src="../assets/logo.png"></div>
+      <router-link class="link" to="/"><img :src="require(`@/assets/logo.png`)" /></router-link>
+<!--      <div @click="$router.push('/')"><img :src="require(`@/assets/logo.png`)"></div>-->
       <div class="navbar__links">
         <router-link class="link" to="/">Калькулятор</router-link>
         <router-link class="link" to="/">Новости</router-link>
-        <router-link class="link" to="/">Документы</router-link>
+        <router-link class="link" to="/documents">Документы</router-link>
         <router-link class="link" to="/">Контакты</router-link>
         <router-link class="link" to="/">Карта</router-link>
         <router-link class="link" to="/" style="margin-right: 0px;">+7 (855) 247-05-90</router-link>
@@ -49,7 +50,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../variables';
+@import '../../variables';
 .navbar{
   z-index: 999;
   display: flex;

@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import AdvantageItem from "@/components/AdvantageItem";
+import AdvantageItem from "@/components/MainPage/AdvantageItem";
 
 export default {
   components: {AdvantageItem},
@@ -21,7 +21,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '../variables';
+@import '../../variables';
 
 .items{
   display: flex;

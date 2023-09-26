@@ -1,9 +1,11 @@
 <template>
   <div>
     <h2>КАРТА</h2>
-    <div v-for="car in cars">{{car}}</div>
-    <div>Местоположение машин отслеживается в реальном времени.</div>
-  <div class="mask_map"></div>
+<!--    <div v-for="car in cars">{{car}}</div>-->
+    <div class="text_map">Местоположение машин отслеживается в реальном времени.</div>
+    <div class="position_map">
+      <div>
+  <div class="mask_map"> </div>
     <YandexMap :settings="settings"
                :coordinates="[56.08318, 86.018216]"
                :zoom="5"
@@ -12,7 +14,6 @@
       <YandexMarker
           v-for="car in cars"
           :coordinates="[car.Lat, car.Lng]"
-          :object = "1231323"
           :properties="{
             hintContent : car.Name
           }"
@@ -27,9 +28,40 @@
           }"
 
       ></YandexMarker>
-
+   <YandexMarker
+       :coordinates="[55.741272, 52.403662]"
+       :options="{
+            preset: 'islands#dotIcon',
+            iconColor: '#d4142f'
+          }"
+   ></YandexMarker>
+      <YandexMarker
+          v-for="point in $store.state.map.main_cities"
+          :coordinates="[point.lat, point.lng]"
+          :properties="{
+            iconCaption: point.name
+          }"
+          :options="{
+            preset: 'islands#dotIcon',
+            iconColor: '#177BC9'
+          }"
+      ></YandexMarker>
+      <YandexMarker
+          v-for="point in $store.state.map.cities"
+          :coordinates="[point.lat, point.lng]"
+          :properties="{
+            hintContent: point.name
+          }"
+          :options="{
+            hintLayout: getHint(),
+            preset: 'islands#dotIcon',
+            iconColor: '#177BC9'
+          }"
+      ></YandexMarker>
     </YandexMap>
 
+      </div>
+  </div>
   </div>
 </template>
 
@@ -51,14 +83,13 @@ export default {
     }
   },
   setup(props){
-      const {cars, angleCar} = useMap()
+      const {cars} = useMap()
       return{
-        cars, angleCar
+        cars
     }
   },
   async mounted() {
     await loadYmap(this.settings);
-
   },
   methods:{
     getIco(){
@@ -93,24 +124,34 @@ export default {
             }
           }
       )
-    }
+    },
   }
 
 
 }
 </script>
 
-<style >
+<style lang="scss">
+@import '../../variables';
 .map{
   height: 600px;
 }
-.mask_map{
-
+.position_map{
   position: relative;
-  margin-top: 10px;
+}
+
+.mask_map{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: space-between;
   padding: 56px 96px 88px;
-  background: linear-gradient(to top, red 8%, transparent 20%, transparent 90%, #fff 95%);
+  background: linear-gradient(to top, #fff 8%, transparent 20%, transparent 90%, #fff 95%);
   pointer-events: none;
   z-index: 1;
   height: 105%;
@@ -128,5 +169,10 @@ export default {
   background-color: #fff;
   border: 1px solid #CDB7B5;
   border-radius: 20px;
+}
+.text_map{
+  text-align: center;
+  color: $c_gray;
+  margin-top: 10px;
 }
 </style>

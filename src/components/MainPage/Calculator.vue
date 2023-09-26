@@ -14,7 +14,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '../variables';
+@import '../../variables';
 .card{
   @include card(white);
 
