@@ -1,10 +1,33 @@
 <template>
   <div>
     <h2>КАРТА</h2>
+    <div v-for="car in cars">{{car}}</div>
     <div>Местоположение машин отслеживается в реальном времени.</div>
   <div class="mask_map"></div>
-    <YandexMap :settings="settings" :coordinates="[56.08318, 86.018216]" class="map">
-      <!--Markers-->
+    <YandexMap :settings="settings"
+               :coordinates="[56.08318, 86.018216]"
+               :zoom="5"
+               :controls="['fullscreenControl']"
+               class="map">
+      <YandexMarker
+          v-for="car in cars"
+          :coordinates="[car.Lat, car.Lng]"
+          :object = "1231323"
+          :properties="{
+            hintContent : car.Name
+          }"
+          :options="{
+            iconLayout: getIco(),
+            iconImageHref: typeIco(car.Angle),
+            iconImageSize: [15, 50],
+            iconShape: {type: 'Circle', coordinates: [0, 0], radius: 30 },
+            iconRotate: car.Angle,
+            iconImageOffset: [car.Angle < 180 ? -15 : 0, -25],
+            hintLayout: getHint(),
+          }"
+
+      ></YandexMarker>
+
     </YandexMap>
 
   </div>
@@ -12,9 +35,10 @@
 
 <script>
 import { YandexMap, YandexMarker } from 'vue-yandex-maps'
-import { loadYmap } from 'vue-yandex-maps'
+import {useMap} from "@/components/hooks/useMap";
+import { loadYmap } from 'vue-yandex-maps';
 export default {
-  components: { YandexMap, YandexMarker  },
+  components: { YandexMap, YandexMarker },
   data() {
     return {
       settings: {
@@ -23,31 +47,62 @@ export default {
         coordorder: 'latlong',
         enterprise: false,
         version: '2.1',
-      }
+      },
+    }
+  },
+  setup(props){
+      const {cars, angleCar} = useMap()
+      return{
+        cars, angleCar
     }
   },
   async mounted() {
-    await loadYmap({ ...this.settings, debug: true });
-    // здесь доступна переменная ymaps
-    const MAP = new ymaps.Map("map", {
-      center: [56.08318, 86.018216],
-      zoom: 5
-    });
-    MAP.controls.remove('geolocationControl'); // удаляем геолокацию
-    MAP.controls.remove('searchControl'); // удаляем поиск
-    MAP.controls.remove('trafficControl'); // удаляем контроль трафика
-    MAP.controls.remove('typeSelector'); // удаляем тип
-    MAP.controls.remove('fullscreenControl'); // удаляем кнопку перехода в полноэкранный режим
-    MAP.controls.remove('rulerControl'); // удаляем контрол правил
+    await loadYmap(this.settings);
+
+  },
+  methods:{
+    getIco(){
+      return ymaps.templateLayoutFactory.createClass([
+        '<div style="transform:rotate({{options.rotate}}deg);">',
+        '{% include "default#image" %}',
+        '</div>'
+      ].join(''))
+    },
+    typeIco(angle){
+      let img = angle < 180 ? 'ico_fu' : 'ico_fu_mirror'
+      return require(`@/assets/map/${img}.png`)
+    },
+    getHint(){
+      return ymaps.templateLayoutFactory.createClass(
+          "<div class='my-hint'>" +
+          "<b>{{ properties.hintContent}}</b>" +
+          "</div>", {
+            getShape: function () {
+              var el = this.getElement(),
+                  result = null;
+              if (el) {
+                var firstChild = el.firstChild;
+                result = new ymaps.shape.Rectangle(
+                    new ymaps.geometry.pixel.Rectangle([
+                      [0, 0],
+                      [firstChild.offsetWidth, firstChild.offsetHeight]
+                    ])
+                );
+              }
+              return result;
+            }
+          }
+      )
+    }
   }
 
 
 }
 </script>
 
-<style scoped>
+<style >
 .map{
-  height: 400px;
+  height: 600px;
 }
 .mask_map{
 
@@ -59,5 +114,19 @@ export default {
   pointer-events: none;
   z-index: 1;
   height: 105%;
+}
+.my-hint {
+  display: inline-block;
+  padding: 5px;
+  height: 30px;
+  position: relative;
+  width: 195px;
+  font-size: 11px;
+  line-height: 17px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #fff;
+  border: 1px solid #CDB7B5;
+  border-radius: 20px;
 }
 </style>

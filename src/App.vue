@@ -1,18 +1,19 @@
 <template>
   <div class="app" >
-    <Navbar />
-    <StartView/>
+    <router-view></router-view>
+<!--    <Navbar />-->
+<!--    <StartView/>-->
 
-    <div class="__container">
-      <Calculator />
-      <News />
-      <Advantages/>
-      <SubmitApplication />
-      <Partners />
-      <Contacts />
-    </div>
-    <Map />
-    <Footer />
+<!--    <div class="__container">-->
+<!--      <Calculator />-->
+<!--      <News />-->
+<!--      <Advantages/>-->
+<!--      <SubmitApplication />-->
+<!--      <Partners />-->
+<!--      <Contacts />-->
+<!--    </div>-->
+<!--    <Map />-->
+<!--    <Footer />-->
   </div>
 </template>
 
