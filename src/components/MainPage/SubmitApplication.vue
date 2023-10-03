@@ -45,6 +45,7 @@
 import MyButton from "@/components/UI/MyButton";
 import MyInput from "@/components/UI/MyInput";
 import axios from 'axios'
+import {useSubmit} from "@/components/hooks/useSubmit";
 export default {
   components: {MyInput, MyButton},
   data(){
@@ -54,29 +55,33 @@ export default {
         email: '',
         tel: '',
       },
-      changeInput: false,
+      //changeInput: false,
     }
   },
-  methods:{
-    onFileChange(event) {
-      let files = event.target.files || event.dataTransfer.files;
-      if (files.length) this.changeInput = true;
-      else this.changeInput = true;
-    },
-    sendReq(){
-      console.log(this.name)
-      const file = this.$refs.file.files[0];
-      const formData = new FormData()
-      formData.append('name', 'sfdfsd')
-      formData.append('email', 'fsdf')
-      formData.append('tel', 'fsdfsdf')
-      formData.append('file', file)
-      axios.post('http://localhost:5000/emailer', formData, {
-        headers: {'Content-Type': 'multipart/form-data'}
-      })
-      alert('Отправлено')
-    }
+  setup(props){
+    const {onFileChange, sendReq, changeInput} = useSubmit(1);
+    return {onFileChange, sendReq, changeInput}
   },
+  // methods:{
+  //   onFileChange(event) {
+  //     let files = event.target.files || event.dataTransfer.files;
+  //     if (files.length) this.changeInput = true;
+  //     else this.changeInput = true;
+  //   },
+  //   sendReq(){
+  //     console.log(this.name)
+  //     const file = this.$refs.file.files[0];
+  //     const formData = new FormData()
+  //     formData.append('name', 'sfdfsd')
+  //     formData.append('email', 'fsdf')
+  //     formData.append('tel', 'fsdfsdf')
+  //     formData.append('file', file)
+  //     axios.post('http://localhost:5000/emailer', formData, {
+  //       headers: {'Content-Type': 'multipart/form-data'}
+  //     })
+  //     alert('Отправлено')
+  //   }
+  // },
   computed: {
     view(){
       if(this.changeInput) return {display: 'inline-block'}
