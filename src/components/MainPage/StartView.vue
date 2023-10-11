@@ -10,8 +10,8 @@
       </div>
 
       <div class="btns">
-        <my-button :color="'orange'">Оставить заявку</my-button>
-        <my-button :color="'blue'">Отследить транспорт</my-button>
+        <my-button :color="'orange'" @click="$router.push('/#zayavka')">Оставить заявку</my-button>
+        <my-button :color="'blue'" @click="$router.push('/#map')">Отследить транспорт</my-button>
       </div>
 
     </div>

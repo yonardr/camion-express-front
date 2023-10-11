@@ -1,14 +1,14 @@
 <template>
 
     <div class="navbar" :class="uu">
-      <router-link class="link" to="/"><img :src="require(`@/assets/logo.png`)" /></router-link>
-<!--      <div @click="$router.push('/')"><img :src="require(`@/assets/logo.png`)"></div>-->
+      <router-link class="link" :to="{name:'main', hash: '#start'}"><img :src="require(`@/assets/logo.png`)" /></router-link>
+
       <div class="navbar__links">
-        <router-link class="link" to="/">Калькулятор</router-link>
-        <router-link class="link" to="/">Новости</router-link>
+        <router-link class="link" :to="{name:'main', hash: '#calc'}">Калькулятор</router-link>
+        <router-link class="link" :to="{name:'main', hash: '#news'}">Новости</router-link>
         <router-link class="link" to="/documents">Документы</router-link>
-        <router-link class="link" to="/">Контакты</router-link>
-        <router-link class="link" to="/">Карта</router-link>
+        <router-link class="link" :to="{name:'main', hash: '#contacts'}" >Контакты</router-link>
+        <router-link class="link" :to="{name:'main', hash: '#map'}" >Карта</router-link>
         <router-link class="link" to="/" style="margin-right: 0px;">+7 (855) 247-05-90</router-link>
 
       </div>
@@ -29,15 +29,7 @@ export default {
   mounted() {
     window.addEventListener('scroll', async () =>this.pageOffset = window.pageYOffset)
   },
-  // destroyed() {
-  //   window.removeEventListener('scroll', this.update)
-  // },
-  // methods: {
-  //   update() {
-  //     this.pageOffset = window.pageYOffset
-  //
-  //   }
-  // },
+
   computed:{
     uu(){
       if(this.pageOffset !== 0){

@@ -1,21 +1,38 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Main from "@/pages/Main";
 import Documents from "@/pages/Documents";
+import PersonalAccount from "@/pages/PersonalAccount.vue";
 
 const routes = [
   {
+    name: 'main',
     path: '/',
     component: Main
   },
   {
+    name:'docs',
     path: '/documents',
     component: Documents
+  },
+  {
+    name: 'personal',
+    path: '/personal',
+    component: PersonalAccount
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (to.hash) {
+      return {
+        el: to.hash,
+        left: 0,
+        top: 110,
+        behavior: 'smooth'
+      }
+    }
+  }
 })
-
 export default router

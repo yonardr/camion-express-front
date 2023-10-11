@@ -1,31 +1,36 @@
 <template>
-  <div>
+  <div id="zayavka">
+<!--    <pre>{{form}}</pre>-->
     <h2>Оставить заявку</h2>
-    <div class="card">
+    <div class="card" @submit.prevent="submit">
       <my-input
           type="text"
-          v-model="submit.name"
+          v-model="form.name.value"
           placeholder="Имя"
           class="input"
       />
       <my-input
           type="email"
-          v-model="submit.email"
+          v-model="form.email.value"
           placeholder="Email"
           class="input"
       />
       <my-input
           type="tel"
-          v-model="submit.tel"
+          v-model="form.tel.value"
           placeholder="Телефон"
           class="input"
+          :class="{invalid: !form.tel.valid && form.tel.touched}"
+          @blur="form.tel.blur"
       />
+      <small v-if="form.tel.touched && form.tel.errors.required" style="color:#ff7b47; margin-left: 10px">Введите номер телефона</small>
+      <small v-else-if="form.tel.touched && form.tel.errors.minLength" style="color:#ff7b47; margin-left: 10px">Недостаточное кол-во символов 8. Символов сейчас {{form.tel.value.length}}</small>
       <div class="upload">
           <input
               class="input__file"
               type="file"
-              ref="file"
-              @change="onFileChange"
+
+              @change="onChange($event)"
               multiple
           >
         <div class="file-dummy" :style="green">
@@ -36,68 +41,66 @@
         <router-link to="https://camionexpress.ru/" class="sub">Скачать файл</router-link>
       </div>
 
-      <my-button :color="'orange'" class="btn" @click="sendReq">Отправить</my-button>
+      <my-button :color="'orange'" class="btn" type="submit" @click="submit" :disabled="!form.valid">Отправить</my-button>
     </div>
   </div>
+  <my-dialog v-model:show="dialogVisible" >
+    <div class="modal">
+    <img :src="require('@/assets/done.svg')" />
+    <h1>Спасибо</h1>
+    <p>В ближайшее время с Вами свяжется наш специалист</p>
+    </div>
+  </my-dialog>
 </template>
 
 <script>
 import MyButton from "@/components/UI/MyButton";
 import MyInput from "@/components/UI/MyInput";
-import axios from 'axios'
-import {useSubmit} from "@/components/hooks/useSubmit";
+import {useFetchSub, useSubmit} from "@/components/hooks/MainPage/useSubmit";
+import {onMounted, ref, watch} from "vue";
+import {useAnimationSubmit} from "@/components/hooks/MainPage/useAnimationSubmit";
+import MyDialog from "@/components/UI/MyDialog.vue";
+const required = val => !!val
+const minLength = num => val => val.length >= num
 export default {
-  components: {MyInput, MyButton},
-  data(){
-    return{
-      submit: {
-        name: '',
-        email: '',
-        tel: '',
+  components: {MyDialog, MyInput, MyButton},
+
+  setup(){
+    const file = ref(null)
+    const changeInput = ref(false)
+    const dialogVisible = ref(false)
+    const form = useSubmit({
+      name: {
+        value: '',
       },
-      //changeInput: false,
-    }
-  },
-  setup(props){
-    const {onFileChange, sendReq, changeInput} = useSubmit(1);
-    return {onFileChange, sendReq, changeInput}
-  },
-  // methods:{
-  //   onFileChange(event) {
-  //     let files = event.target.files || event.dataTransfer.files;
-  //     if (files.length) this.changeInput = true;
-  //     else this.changeInput = true;
-  //   },
-  //   sendReq(){
-  //     console.log(this.name)
-  //     const file = this.$refs.file.files[0];
-  //     const formData = new FormData()
-  //     formData.append('name', 'sfdfsd')
-  //     formData.append('email', 'fsdf')
-  //     formData.append('tel', 'fsdfsdf')
-  //     formData.append('file', file)
-  //     axios.post('http://localhost:5000/emailer', formData, {
-  //       headers: {'Content-Type': 'multipart/form-data'}
-  //     })
-  //     alert('Отправлено')
-  //   }
-  // },
-  computed: {
-    view(){
-      if(this.changeInput) return {display: 'inline-block'}
-      else return {display: 'none'}
-    },
-    noview(){
-      if(this.changeInput) return {display: 'none'}
-      else return {display: 'inline-block'}
-    },
-    green(){
-      if(this.changeInput) return {
-        'border-color' : 'rgba(0, 255, 0, 0.4)',
-        'background-color': 'rgba(0, 255, 0, 0.3)',
+      email:{
+        value : '',
+      },
+      tel:{
+        value: '',
+        validators: {required, minLength: minLength(8)}
       }
+    });
+    function onChange(event) {
+      file.value = event.target.files[0]
+      console.log('поместил', form.value)
+
+      let files = event.target.files || event.dataTransfer.files;
+      if (files.length) changeInput.value = true;
+      else changeInput.value = true;
     }
-  }
+    const submit = async() => {
+      if(201 === await useFetchSub(form, file.value)){
+        dialogVisible.value = true
+      }
+      else alert('Ошибка')
+    }
+
+    const {view, noview, green} = useAnimationSubmit(changeInput)
+
+    return {form, submit, onChange, view, noview, green, dialogVisible}
+  },
+
 }
 </script>
 
@@ -153,6 +156,9 @@ h2{
 .input{
   margin: 5px 0;
 }
+.invalid{
+  border-color: $c_orange;
+}
 .sub{
   display: flex;
   width: 100%;
@@ -176,5 +182,13 @@ h2{
     border-color: $c_orange;
   }
 
+}
+
+.modal{
+  text-align: center;
+  img{
+    margin: 0 auto;
+    width:150px
+  }
 }
 </style>

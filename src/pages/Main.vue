@@ -1,18 +1,18 @@
 <template>
   <div>
-        <Navbar />
-        <StartView/>
+        <Navbar v-model:scrollTo="scrollTo" />
+        <StartView id="start"/>
 
         <div class="__container">
-          <Calculator />
-          <News />
+          <Calculator id="calc"/>
+          <News id="news" />
           <Advantages/>
           <SubmitApplication />
           <Partners />
-          <Contacts />
+          <Contacts id="contacts" />
         </div>
-        <Map />
-        <Footer />
+        <Map id="map"/>
+        <Footer/>
   </div>
 </template>
 
@@ -27,12 +27,13 @@ import Map from "@/components/MainPage/Map";
 import Calculator from "@/components/MainPage/Calculator";
 import News from "@/components/MainPage/News";
 import Footer from "@/components/MainPage/Footer";
+import { ref, watch} from "vue";
 
 export default {
   components: {Footer, News, Calculator, Map, Contacts, Partners, SubmitApplication, Advantages, StartView, Navbar},
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>

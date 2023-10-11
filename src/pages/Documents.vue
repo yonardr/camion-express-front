@@ -2,8 +2,10 @@
   <div>
       <Navbar />
     <div class="__container">
+      <div class="title">
       <h2>Документы</h2>
-
+        <ViewDocs></ViewDocs>
+      </div>
     </div>
 
   </div>
@@ -11,9 +13,10 @@
 
 <script>
 import Navbar from "@/components/MainPage/Navbar";
+import ViewDocs from "@/components/Docs/ViewDocs.vue";
 export default {
 components:{
-  Navbar
+  Navbar,ViewDocs
 }
 }
 </script>
@@ -24,9 +27,8 @@ components:{
   justify-content: center;
 }
 
-h2{
-  position: absolute;
-  margin: 100px 0;
-
+.title{
+  width: 100%;
+  margin-top: 100px;
 }
 </style>

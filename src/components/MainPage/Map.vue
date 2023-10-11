@@ -67,7 +67,7 @@
 
 <script>
 import { YandexMap, YandexMarker } from 'vue-yandex-maps'
-import {useMap} from "@/components/hooks/useMap";
+import {useMap} from "@/components/hooks/MainPage/useMap";
 import { loadYmap } from 'vue-yandex-maps';
 export default {
   components: { YandexMap, YandexMarker },
