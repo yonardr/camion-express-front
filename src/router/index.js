@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Main from "@/pages/Main";
 import Documents from "@/pages/Documents";
 import PersonalAccount from "@/pages/PersonalAccount.vue";
+import AuthPage from "@/pages/AuthPage.vue";
 
 const routes = [
   {
@@ -15,10 +16,16 @@ const routes = [
     component: Documents
   },
   {
+    name: 'auth',
+    path: '/auth',
+    component: AuthPage
+  },
+  {
     name: 'personal',
     path: '/personal',
     component: PersonalAccount
-  }
+  },
+
 ]
 
 const router = createRouter({

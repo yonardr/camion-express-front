@@ -62,4 +62,12 @@ img{
   height: 100vh;
   object-fit: cover;
 }
+@media (max-width: 1024px) {
+  .down{
+    margin-top: 150px;
+  }
+  h1{
+    font-size: 38px;
+  }
+}
 </style>

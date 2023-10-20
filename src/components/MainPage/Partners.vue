@@ -119,4 +119,13 @@ export default {
   margin: 10px 0;
   line-height: 130%;
 }
+@media (max-width: 1024px) {
+  .first__group,
+  .second__group {
+    grid-template-columns: repeat(3, 768/3-0.1px) !important;
+  }
+  .second__group{
+    grid-template-columns: repeat(2, 200px) !important;
+  }
+}
 </style>

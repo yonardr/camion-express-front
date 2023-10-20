@@ -21,11 +21,6 @@
   font-size: 18px;
   font-weight: 600;
 }
-.__container{
-  margin: 0 auto;
-  max-width: 1000px;
-}
-
 h2{
   color: $c_blue;
   font-size: 40px;

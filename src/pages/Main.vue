@@ -34,6 +34,15 @@ export default {
 }
 </script>
 
-<style>
+<style >
+.__container{
+  margin: 0 auto;
+  max-width: 1000px;
+}
+@media (max-width: 1024px) {
+  .__container{
+    padding: 0 15px;
+  }
+}
 
 </style>

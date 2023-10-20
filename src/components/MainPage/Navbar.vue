@@ -1,7 +1,7 @@
 <template>
 
     <div class="navbar" :class="uu">
-      <router-link class="link" :to="{name:'main', hash: '#start'}"><img :src="require(`@/assets/logo.png`)" /></router-link>
+      <router-link class="link logo" :to="{name:'main', hash: '#start'}"><img :src="require(`@/assets/logo.png`)" /></router-link>
 
       <div class="navbar__links">
         <router-link class="link" :to="{name:'main', hash: '#calc'}">Калькулятор</router-link>
@@ -12,7 +12,27 @@
         <router-link class="link" to="/" style="margin-right: 0px;">+7 (855) 247-05-90</router-link>
 
       </div>
+      <div class="burger" :class="{active: burger_active}" @click="burger_active=!burger_active"><span></span></div>
 
+      <div class="navbar_tel" :class="{active: burger_active}">
+        <ul class="menu_table">
+          <li>
+            <router-link class="menu_button" :to="{name:'main', hash: '#calc'}" @click="burger_active=!burger_active">Калькулятор</router-link>
+          </li>
+          <li>
+            <router-link class="menu_button" :to="{name:'main', hash: '#news'}" @click="burger_active=!burger_active">Новости</router-link>
+          </li>
+          <li>
+            <router-link class="menu_button" to="/documents" @click="burger_active=!burger_active">Документы</router-link>
+          </li>
+          <li>
+            <router-link class="menu_button" :to="{name:'main', hash: '#contacts'}" @click="burger_active=!burger_active">Контакты</router-link>
+          </li>
+          <li>
+            <router-link class="menu_button" :to="{name:'main', hash: '#map'}" @click="burger_active=!burger_active">Карта</router-link>
+          </li>
+        </ul>
+      </div>
 
     </div>
 
@@ -23,6 +43,7 @@ export default {
   data(){
     return{
       pageOffset: 0,
+      burger_active : false
     }
   },
 
@@ -87,6 +108,94 @@ export default {
     }
   }
 }
+.navbar_tel{
+  position: fixed;
+  top: -200%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: hsl(0,0%, 100%, 0.1);
+  backdrop-filter: blur(1rem);
+  -webkit-backdrop-filter: blur(10px);
+  paddig: 70px 10px 20px 10px;
+  transition: all 0.3s ease 0s;
+  z-index: 15;
+}
+.menu_table{
+  display: block;
+  margin: 100px 45% 0 5%;
+  padding: 7px 0px;
+  font-size: 25px;
+  line-height: 200%;
+  list-style: none;
+}
+.menu_button{
+  text-decoration: none;
+  color:$c_blue
+}
+
+@media (max-width: 1024px) {
+  .navbar{
+    justify-content: flex-start;
+  }
+  .navbar__links{
+    display: none !important;
+  }
+  .navbar_tel.active{
+    top:0 !important;
+  }
+  .logo{
+    margin-left: 10px;
+    z-index: 99;
+  }
+  .burger{
+    display: block;
+    position: fixed;
+    left: 90%;
+    width: 30px;
+    height: 20px;
+    top: 32px;
+    z-index: 50;
+
+    span{
+      position: absolute;
+      background-color: #1B1B1C;
+      left:0;
+      width: 100%;
+      height: 2px;
+      top: 9px;
+      transition:all 0.3s ease 0s;
+    }
+
+    &:before,
+    &:after{
+      content: '';
+      background-color: #1B1B1C;
+      position:absolute;
+      width: 100%;
+      height: 2px;
+      left:0;
+      transition:all 0.3s ease 0s;
+    }
+    &:before{
+      top: 0;
+    }
+    &:after{
+      bottom: 0;
+    }
+    &.active:before{
+      transform:rotate(45deg);
+      top:9px;
+    }
+    &.active:after{
+      transform:rotate(-45deg);
+      bottom:9px;
+    }
+    &.active span{
+      transform: scale(0);
+    }
+  }
+  }
 
 .scroll{
   background : rgb(245, 245, 247);

@@ -110,4 +110,5 @@ h3{
   color: $c_gray;
   text-align: center;
 }
+
 </style>
