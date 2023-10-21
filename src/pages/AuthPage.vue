@@ -1,6 +1,8 @@
 <template>
   <div class="wrapper">
-    <Auth/>
+
+      <Auth/>
+
   </div>
 </template>
 
@@ -15,6 +17,9 @@ export default {
 
 <style lang="scss" scoped>
 .wrapper{
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 </style>

@@ -1,8 +1,9 @@
 <template>
   <div class="page">
-    <div class="navbar"></div>
+    <SideNavbar />
     <div class="content">
-      <DocumentsAdmin></DocumentsAdmin>
+      <router-view/>
+      <router-view name="calc"/>
     </div>
 
   </div>
@@ -10,23 +11,18 @@
 
 <script>
 import DocumentsAdmin from "@/pages/DocumentsAdmin.vue";
+import SideNavbar from "@/components/Personal/SideNavbar.vue";
 export default {
-  components:{DocumentsAdmin}
+  components:{SideNavbar, DocumentsAdmin}
 }
 </script>
 
 <style lang="scss" scoped>
-@import "../variables";
 .page{
   display: flex;
-}
-.navbar{
-  position: absolute;
-  height: 100vh;
-  width: 100px;
-  background-color: $c_blue;
+  background-color: #f1f4f6;
 }
 .content{
-  margin-left: 150px;
+  margin-left: 50px;
 }
 </style>

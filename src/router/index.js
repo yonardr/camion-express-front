@@ -3,6 +3,9 @@ import Main from "@/pages/Main";
 import Documents from "@/pages/Documents";
 import PersonalAccount from "@/pages/PersonalAccount.vue";
 import AuthPage from "@/pages/AuthPage.vue";
+import ViewDocs from "@/components/Docs/ViewDocs.vue";
+import DocumentsAdmin from "@/pages/DocumentsAdmin.vue";
+import Calculator from "@/components/Culc/Calculator.vue";
 
 const routes = [
   {
@@ -23,7 +26,19 @@ const routes = [
   {
     name: 'personal',
     path: '/personal',
-    component: PersonalAccount
+    component: PersonalAccount,
+    children: [
+      {
+        name: 'docsEdit' ,
+        path: 'docsEdit',
+        component: DocumentsAdmin
+      },
+      {
+        name: 'calcEdit' ,
+        path: 'calcEdit',
+        component: Calculator
+      },
+    ]
   },
 
 ]

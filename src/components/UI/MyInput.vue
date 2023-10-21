@@ -23,6 +23,7 @@ export default {
   background: #f9f9f9;
   color: #737373;
   border-radius: 37px;
+  height: 100%;
   min-height: 58px;
   border: 1px solid #e6e6e6;
 }

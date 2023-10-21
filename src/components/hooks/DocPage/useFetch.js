@@ -1,5 +1,6 @@
 import axios from "axios";
 import {onMounted, ref} from "vue";
+import {useFetchTypesDocs} from "@/components/hooks/DocPage/useFetchTypesDocs";
 export function useFetchDocs(){
     const docs = ref([])
     const fetching = async() =>{

@@ -83,7 +83,7 @@ export default {
     });
     function onChange(event) {
       file.value = event.target.files[0]
-      console.log('поместил', form.value)
+      //console.log('поместил', form.value)
 
       let files = event.target.files || event.dataTransfer.files;
       if (files.length) changeInput.value = true;
