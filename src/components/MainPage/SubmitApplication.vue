@@ -22,6 +22,7 @@
           class="input"
           :class="{invalid: !form.tel.valid && form.tel.touched}"
           @blur="form.tel.blur"
+          :type="'main'"
       />
       <small v-if="form.tel.touched && form.tel.errors.required" style="color:#ff7b47; margin-left: 10px">Введите номер телефона</small>
       <small v-else-if="form.tel.touched && form.tel.errors.minLength" style="color:#ff7b47; margin-left: 10px">Недостаточное кол-во символов 8. Символов сейчас {{form.tel.value.length}}</small>

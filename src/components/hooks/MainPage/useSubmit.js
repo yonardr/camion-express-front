@@ -25,7 +25,7 @@ export async function useFetchSub(init ={}, file){
         formData.append('email', init.email.value)
         formData.append('tel', init.tel.value)
         formData.append('file', file)
-
+        //console.log(file)
         const res = await axios.post('http://localhost:5000/emailer/file', formData, {
             headers: {'Content-Type': 'multipart/form-data'}
         })

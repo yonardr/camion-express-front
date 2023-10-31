@@ -7,12 +7,11 @@ export function useFetchDocs(){
         try {
             const types = await axios.get(`${process.env.VUE_APP_API_URL}/documents/types`)
             const all_docs = await axios.get(`${process.env.VUE_APP_API_URL}/documents`)
-
             types.data.map(types=>{
-                const obj = {id: types.id, type: types.name}
+                const obj = {id: types.id, type: types.name, obj: []}
                 all_docs.data.map(item => {
                     if(item.type_id === types.id){
-                        obj.obj = item
+                        obj.obj.push(item)
                     }
                 })
                 docs.value.push(obj)

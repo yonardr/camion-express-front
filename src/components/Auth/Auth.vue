@@ -6,13 +6,15 @@
       <div>
       <h3>Логин</h3>
       <my-input v-model="form.login.value"
-                class="input"
-                placeholder="Номер телефона или Email"/>
+                placeholder="Номер телефона или Email"
+                :type="'personal'"
+      />
       </div>
       <div>
       <h3>Пароль</h3>
       <my-input v-model="form.password.value"
-                placeholder="Введите пароль" />
+                placeholder="Введите пароль"
+                :type="'personal'"/>
       </div>
 
       <my-button class="btn btn2" @click="submit">Войти</my-button>
@@ -87,20 +89,6 @@ h2{
 }
 h3{
   margin-top: 11px;
-}
-.input{
-  margin-top: 11px;
-  border: solid 1px $c_blue;
-  border-radius: 20px;
-  background: #F9F9F9;
-  width: 100%;
-  height: 53px;
-  &::placeholder{
-    color: rgba(0, 0, 0, 0.20);
-    font-family: Montserrat, sans-serif;
-    font-size: 16px !important;
-    font-weight: 700 !important;
-  }
 }
 
 .btn{

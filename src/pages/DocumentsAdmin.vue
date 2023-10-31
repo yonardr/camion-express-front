@@ -1,10 +1,18 @@
 <template>
   <div class="page">
+
     <div class="card">
     <ViewDocs :deleteField="true"></ViewDocs>
     </div>
+
     <div class="card">
       <h3>Добавление документа</h3>
+
+      <my-input
+          v-model="name"
+          :type="'personal'"
+          placeholder="Введите название документа"
+      />
 
       <select class="select" v-model="selectType" >
         <option :value="null" disabled>Выберите тип документа</option>
@@ -12,11 +20,9 @@
       </select>
 
 
-      <label for="images" class="drop-container">
-        <span class="drop-title">Drop files here</span>
-        or
-        <input type="file" accept="*" required>
-      </label>
+      <my-input-file v-model="file"/>
+
+      <my-button :color="'blue'" class="btn" @click="submit">Добавить файл</my-button>
 
     </div>
   </div>
@@ -28,17 +34,34 @@ import ViewDocs from "@/components/Docs/ViewDocs.vue";
 import {ref, watch} from "vue";
 import MyDialog from "@/components/UI/MyDialog.vue";
 import {useFetchTypesDocs} from "@/components/hooks/DocPage/useFetchTypesDocs";
+import MyInputFile from "@/components/UI/MyInputFile.vue";
+import MyInput from "@/components/UI/MyInput.vue";
+import MyButton from "@/components/UI/MyButton.vue";
+import {useAddDoc} from "@/components/hooks/DocPage/useAddDoc";
 
 export default {
-  components: {MyDialog, ViewDocs},
+  components: {MyButton, MyInput, MyInputFile, MyDialog, ViewDocs},
 
 setup(props){
     const {types} = useFetchTypesDocs()
     const selectType = ref(null)
     watch(selectType, (i,k)=>console.log(i))
+    const file = ref(null)
+    watch(file, (i,k)=>console.log(i))
+    const name = ref(null)
+    function submit(){
+      if(selectType.value !== null &&
+          file.value !== null &&
+          name.value &&
+          name.value.trim() !== '' ) {
+          useAddDoc({name: name.value, type: selectType.value, file: file.value})
+      }
+      else{
+        alert('Не все поля заполнены')
+      }
+    }
 
-
-    return {types, selectType}
+    return {types, selectType, file, submit, name}
 }
 }
 </script>
@@ -50,7 +73,7 @@ setup(props){
 }
 .card{
   margin: 25px;
-  width: 500px;
+  width: 700px;
   padding: 25px;
   @include card(white);
 
@@ -60,68 +83,21 @@ setup(props){
 .select{
   background: #eeeeee;
   border-radius: 20px;
-  height: 40px;
+  height: 50px;
   width: 300px;
-}
-
-
-.drop-container {
-  position: relative;
-  display: flex;
-  gap: 10px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
-  padding: 20px;
-  border-radius: 10px;
-  border: 2px dashed #555;
-  color: #444;
-  cursor: pointer;
-  transition: background .2s ease-in-out, border .2s ease-in-out;
-}
-
-.drop-container:hover,
-.drop-container.drag-active {
-  background: #eee;
-  border-color: #111;
-}
-
-.drop-container:hover .drop-title,
-.drop-container.drag-active .drop-title {
-  color: #222;
-}
-
-.drop-title {
-  color: #444;
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  transition: color .2s ease-in-out;
-}
-
-input[type=file] {
-  width: 350px;
-  max-width: 100%;
-  color: #444;
+  font-size: 18px;
   padding: 5px;
-  background: #fff;
-  border-radius: 10px;
-  border: 1px solid #555;
+  margin: 15px 0;
+  option{
+    font-size: 18px;
+  }
+}
+.btn{
+  &:hover{
+    border: solid $c_blue 1px;
+  }
+
 }
 
-input[type=file]::file-selector-button {
-  margin-right: 20px;
-  border: none;
-  background: #084cdf;
-  padding: 10px 20px;
-  border-radius: 10px;
-  color: #fff;
-  cursor: pointer;
-  transition: background .2s ease-in-out;
-}
 
-input[type=file]::file-selector-button:hover {
-  background: #0d45a5;
-}
 </style>

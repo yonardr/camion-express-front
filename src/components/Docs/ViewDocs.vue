@@ -2,9 +2,16 @@
   <div class="module">
   <div v-for="item in docs">
     <h5>{{item.type}}</h5>
-    <div v-if="item.obj">
-      <a :href="f(item.obj.path)" target="_blank">{{item.obj.name}} </a>
-      <button v-if="deleteField" @click="id=item.obj.id;dialogVisible=true">X</button>
+    <div v-if="item.obj" v-for="i in item.obj" class="block">
+      <a :href="f(i.path)" target="_blank">{{i.name}} </a>
+      <my-button
+          class="btn"
+          :color="'blue'"
+          v-if="deleteField"
+          @click="id=i.id;dialogVisible=true"
+      >
+        X
+      </my-button>
     </div>
   </div>
     <my-dialog v-model:show="dialogVisible">
@@ -57,5 +64,14 @@ h5{
 }
 a{
   text-decoration: none;
+}
+.block{
+  display: flex;
+  align-items: center;
+  justify-content: space-between
+}
+.btn{
+  margin-left: 15px;
+  height: 30px;
 }
 </style>
